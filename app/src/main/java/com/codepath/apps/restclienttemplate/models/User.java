@@ -8,6 +8,10 @@ public class User {
     public String name;
     public String screenName;
     public String publicImageUrl;
+
+    //Empty constructor for parceler
+    public User(){}
+
     public static User fromJson(JSONObject jsonObject){
         User user = new User();
         try {

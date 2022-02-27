@@ -19,6 +19,9 @@ public class Tweet {
     public String timeStamp;
     public static final String TAG = "TWEET";
 
+    //Empty constructor for parceler
+    public Tweet(){}
+
     public static Tweet fromJson(JSONObject jsonObject){
         Tweet tweet = new Tweet();
         try {

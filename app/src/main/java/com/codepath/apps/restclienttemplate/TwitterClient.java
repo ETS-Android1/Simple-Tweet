@@ -1,13 +1,14 @@
 package com.codepath.apps.restclienttemplate;
 
-import android.content.Context;
+	import android.content.Context;
 
-import com.codepath.asynchttpclient.RequestParams;
-import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
-import com.codepath.oauth.OAuthBaseClient;
-import com.github.scribejava.apis.FlickrApi;
-import com.github.scribejava.apis.TwitterApi;
-import com.github.scribejava.core.builder.api.BaseApi;
+	import com.codepath.apps.restclienttemplate.models.Tweet;
+	import com.codepath.asynchttpclient.RequestParams;
+	import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
+	import com.codepath.oauth.OAuthBaseClient;
+	import com.github.scribejava.apis.FlickrApi;
+	import com.github.scribejava.apis.TwitterApi;
+	import com.github.scribejava.core.builder.api.BaseApi;
 
 /*
  * 
@@ -60,6 +61,14 @@ public class TwitterClient extends OAuthBaseClient {
 		params.put("count", 25);
 		params.put("max_id", maxId);
 		client.get(apiUrl, params, handler);
+	}
+
+	public void publishTweet(String tweet, JsonHttpResponseHandler handler) {
+		String apiUrl = getApiUrl("statuses/update.json");
+		// Can specify query string params directly or through RequestParams.
+		RequestParams params = new RequestParams();
+		params.put("status", tweet);
+		client.post(apiUrl, params,"", handler);
 	}
 
 	/* 1. Define the endpoint URL with getApiUrl and pass a relative path to the endpoint
