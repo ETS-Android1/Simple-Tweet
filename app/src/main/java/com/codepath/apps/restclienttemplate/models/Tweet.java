@@ -2,21 +2,46 @@ package com.codepath.apps.restclienttemplate.models;
 
 import android.util.Log;
 
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.ForeignKey;
+import androidx.room.Ignore;
+import androidx.room.PrimaryKey;
+
 import com.codepath.apps.restclienttemplate.TimeFormatter;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.parceler.Parcel;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Parcel
+@Entity(foreignKeys = @ForeignKey(entity=User.class, parentColumns="id", childColumns="userId"))
 public class Tweet {
-    public String body;
-    public String createdAt;
+
+    @PrimaryKey
+    @ColumnInfo
     public long id;
+
+    @ColumnInfo
+    public String body;
+
+    @ColumnInfo
+    public String createdAt;
+
+    @ColumnInfo
+    public long userId;
+
+    @Ignore
     public User user;
+
+    @Ignore
     public String timeStamp;
+
+    @Ignore
     public static final String TAG = "TWEET";
 
     //Empty constructor for parceler
@@ -29,6 +54,7 @@ public class Tweet {
             tweet.createdAt = jsonObject.getString("created_at");
             tweet.user = User.fromJson(jsonObject.getJSONObject("user"));
             tweet.id = jsonObject.getLong("id");
+            tweet.userId = tweet.user.id;
             tweet.getFormattedTimestamp();
         } catch (JSONException e) {
             e.printStackTrace();
